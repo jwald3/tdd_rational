@@ -15,5 +15,6 @@ public:
 };
 
 Rational operator+(const Rational& L, const Rational& R);
+Rational operator-(const Rational& L, const Rational& R);
 bool operator==(const Rational& L, const Rational& R);
 std::ostream& operator<<(std::ostream& out, const Rational& rational);

@@ -38,7 +38,12 @@ bool testRationalAddition() {
 }
 
 bool testRationalSubtraction() {
-    bool normalizedRationalUponSubtraction = true;
+    Rational r1(3, 4);  // Represents 3/4
+    Rational r2(1, 2);  // Represents 1/2 (or equivalently 2/4)
+
+    Rational diff = r1 - r2;
+
+    bool normalizedRationalUponSubtraction = ASSERT_EQ(Rational(1, 4), diff);
 
     return normalizedRationalUponSubtraction;
 }

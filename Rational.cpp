@@ -41,6 +41,10 @@ Rational operator + (const Rational &L, const Rational &R) {
     return Rational(numerator, denominator);
 }
 
+Rational operator - (const Rational &l, const Rational &R) {
+    return Rational(1, 1);
+}
+
 bool operator == (const Rational &L, const Rational &R) {
     return L.getNumerator() == R.getNumerator() && L.getDenominator() == R.getDenominator();
 }
