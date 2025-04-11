@@ -19,11 +19,16 @@ Rational::Rational(int num, int den) {
 int Rational::getNumerator() const { return numerator; }
 int Rational::getDenominator() const { return denominator; }
 
+int Rational::getCommonDenominator(Rational &L, Rational &R) {
+        if (L.getDenominator() == R.getDenominator()) return L.getDenominator();
+        else return L.getDenominator() * R.getDenominator();
+}
+
 Rational operator + (const Rational &L, const Rational &R) {
     int lDenom = L.getDenominator();
     int rDenom = R.getDenominator();
 
-    int denominator = lDenom == rDenom ? lDenom : lDenom * rDenom;
+    int denominator = Rational.getCommonDenominator(L, R);
 
     int numerator { 0 };
 
