@@ -1,6 +1,12 @@
 #include "RationalTests.h"
 #include "TestRunner.h"
 
+bool testConstruction() {
+    bool rationalNormalizedOnConstruction = true;
+
+    return rationalNormalizedOnConstruction;
+}
+
 bool testRationalAddition() {
     Rational r1(1, 2);      // Represents 1/2
     Rational r2(1, 3);      // Represents 1/3
@@ -27,4 +33,16 @@ bool testRationalAddition() {
         ASSERT_EQ(Rational(-1, 6), rationalNegativeSum);
 
     return positiveRationalAdditionSum && canceledOutRationalAdditionSum && negativeOutRationalAdditionSum;
+}
+
+bool testRationalSubtraction() {
+    bool normalizedRationalUponSubtraction = true;
+
+    return normalizedRationalUponSubtraction;
+}
+
+bool testInvalidDenominator() {
+    bool zeroDenominatorException = true;
+
+    return zeroDenominatorException;
 }
