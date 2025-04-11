@@ -2,7 +2,9 @@
 #include "TestRunner.h"
 
 bool testConstruction() {
-    bool rationalNormalizedOnConstruction = true;
+    Rational r(4, 8);
+
+    bool rationalNormalizedOnConstruction = ASSERT_EQ(Rational(1, 2), r);
 
     return rationalNormalizedOnConstruction;
 }

@@ -2,8 +2,19 @@
 #include <iostream>
 
 Rational::Rational(){}
-Rational::Rational(int numerator, int denominator) 
-    : numerator{numerator}, denominator{denominator} {}
+Rational::Rational(int num, int den) {
+        int greatestCommonMultiple { 1 };
+
+        for (int i { num }; i > 1; --i) {
+            if (num % i == 0 && den % i == 0) {
+                greatestCommonMultiple = i;
+                break;
+            }
+        }
+
+        numerator = num / greatestCommonMultiple;
+        denominator = den / greatestCommonMultiple;
+    }
 
 int Rational::getNumerator() const { return numerator; }
 int Rational::getDenominator() const { return denominator; }
