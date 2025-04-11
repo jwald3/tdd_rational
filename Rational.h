@@ -12,6 +12,8 @@ public:
     int getNumerator() const;
 
     int getDenominator() const;
+
+    static int getCommonDenominator(Rational& L, Rational& R);
 };
 
 Rational operator+(const Rational& L, const Rational& R);
