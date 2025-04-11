@@ -3,17 +3,17 @@
 
 Rational::Rational(){}
 Rational::Rational(int num, int den) {
-        int greatestCommonMultiple { 1 };
+        int gcd { 1 };
 
         for (int i { num }; i > 1; --i) {
             if (num % i == 0 && den % i == 0) {
-                greatestCommonMultiple = i;
+                gcd = i;
                 break;
             }
         }
-
-        numerator = num / greatestCommonMultiple;
-        denominator = den / greatestCommonMultiple;
+        
+        numerator = num / gcd;
+        denominator = den / gcd;
     }
 
 int Rational::getNumerator() const { return numerator; }
@@ -42,7 +42,7 @@ Rational operator + (const Rational &L, const Rational &R) {
 }
 
 Rational operator - (const Rational &l, const Rational &R) {
-    return Rational(1, 1);
+    return Rational(1, 1); // TODO: replace with actual implementation
 }
 
 bool operator == (const Rational &L, const Rational &R) {
