@@ -13,7 +13,7 @@ public:
 
     int getDenominator() const;
 
-    static int getCommonDenominator(Rational& L, Rational& R);
+    static int getCommonDenominator(const Rational& L, const Rational& R);
 };
 
 Rational operator+(const Rational& L, const Rational& R);
