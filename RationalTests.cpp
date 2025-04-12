@@ -11,25 +11,25 @@ bool testRationalBasicOperations() {
     Rational a(1, 2);
     Rational b(2, 4);
     Rational c(1, 3);
-    
+
     // Test that Rational automatically reduces to lowest form
     bool result = ASSERT_EQ(a, b);
     
     // Test inequality
     result = result && ASSERT_EQ(false, a == c);
-    
+
     // Test addition
     Rational sum = a + c;  // 1/2 + 1/3 = 5/6
     result = result && ASSERT_EQ(Rational(5, 6), sum);
-    
+
     // Test subtraction
     Rational diff = a - c;  // 1/2 - 1/3 = 1/6
     result = result && ASSERT_EQ(Rational(1, 6), diff);
-    
+
     // Test multiplication
     Rational product = a * c;  // 1/2 * 1/3 = 1/6
     result = result && ASSERT_EQ(Rational(1, 6), product);
-    
+
     // Test division
     Rational quotient = a / c;  // 1/2 / 1/3 = 3/2
     result = result && ASSERT_EQ(Rational(3, 2), quotient);
