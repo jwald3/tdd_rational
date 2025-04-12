@@ -2,7 +2,9 @@
 #include "TestRunner.h"
 #include "Rational.h"
 
-bool testConstruction();
-bool testRationalAddition();
-bool testRationalSubtraction();
-bool testInvalidDenominator();
+bool testRationalBasicOperations();
+bool testRationalEdgeCases();
+bool testRationalLargeNumbers();
+bool testRationalStringConversion();
+bool testRationalComparisonOperators();
+bool testRationalUnaryOperators();

@@ -2,10 +2,11 @@
 #include <ostream>
 
 class Rational {
-private:
+   private:
     int numerator{};
     int denominator{};
-public:
+
+   public:
     Rational();
     Rational(int numerator, int denominator);
 
@@ -13,10 +14,26 @@ public:
 
     int getDenominator() const;
 
-    static int getCommonDenominator(const Rational& L, const Rational& R);
-};
+    Rational operator+(const Rational& R);
+    Rational operator-(const Rational& R);
+    Rational operator*(const Rational& R);
+    Rational operator/(const Rational& R);
 
-Rational operator+(const Rational& L, const Rational& R);
-Rational operator-(const Rational& L, const Rational& R);
-bool operator==(const Rational& L, const Rational& R);
-std::ostream& operator<<(std::ostream& out, const Rational& rational);
+    bool operator==(const Rational& R);
+    bool operator!=(const Rational& R);
+    bool operator<(const Rational& R);
+    bool operator>(const Rational& R);
+    bool operator<=(const Rational& R);
+    bool operator>=(const Rational& R);
+
+    Rational operator-() const;
+    Rational operator+() const;
+
+    Rational& operator++();
+    Rational operator++(int);
+    Rational& operator--();
+    Rational operator--(int);
+
+    friend std::ostream& operator<<(std::ostream& out,
+                                    const Rational& rational);
+};
