@@ -114,7 +114,13 @@ Rational Rational::operator--(int margin) {
 
 
 std::ostream &operator<<(std::ostream &out, const Rational &rational) {
-    out << '(' << rational.getNumerator() << '/' << rational.getDenominator()
-        << ')';
+    if (rational.getNumerator() == 0) {
+        out << '0';
+    } else if (rational.getDenominator() == 1) {
+        out << rational.getNumerator();
+    } else {
+        out << rational.getNumerator() << '/' << rational.getDenominator();
+    }
+
     return out;
 }
