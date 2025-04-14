@@ -8,6 +8,7 @@ class Rational {
 
    public:
     Rational();
+    Rational(int numerator);
     Rational(int numerator, int denominator);
 
     int getNumerator() const;

@@ -14,6 +14,10 @@ int findGCD(int a, int b) {
 }
 
 Rational::Rational() {}
+Rational::Rational(int num) {
+    numerator = num;
+    denominator = 1;
+}
 Rational::Rational(int num, int den) {
     if (den == 0) throw std::invalid_argument("cannot pass 0 in the denominator");
 

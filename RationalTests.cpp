@@ -188,3 +188,168 @@ bool testRationalUnaryOperators() {
     return result;
 }
 
+// Test for sign normalization
+bool testRationalSignNormalization() {
+    // All of these should be equivalent to 1/2
+    Rational a(1, 2);
+    Rational b(-1, -2);
+    Rational c(2, 4);
+    Rational d(-2, -4);
+    
+    bool result = ASSERT_EQ(a, b);
+    result = result && ASSERT_EQ(a, c);
+    result = result && ASSERT_EQ(a, d);
+    
+    // All of these should be equivalent to -1/2
+    Rational e(-1, 2);
+    Rational f(1, -2);
+    Rational g(-2, 4);
+    Rational h(2, -4);
+    
+    result = result && ASSERT_EQ(e, f);
+    result = result && ASSERT_EQ(e, g);
+    result = result && ASSERT_EQ(e, h);
+    
+    return result;
+}
+
+// Test for complex fractions
+bool testRationalComplexOperations() {
+    Rational a(3, 4);
+    Rational b(5, 8);
+    Rational c(2, 5);
+    
+    // Test more complex addition: 3/4 + 5/8 = 11/8
+    Rational sum = a + b;
+    bool result = ASSERT_EQ(Rational(11, 8), sum);
+    
+    // Test chained operations: (3/4 + 5/8) * 2/5 = 11/8 * 2/5 = 11/20
+    Rational complex = sum * c;
+    result = result && ASSERT_EQ(Rational(11, 20), complex);
+    
+    // Test complex subtraction: 3/4 - 5/8 = 1/8
+    Rational diff = a - b;
+    result = result && ASSERT_EQ(Rational(1, 8), diff);
+    
+    // Test division with simplification: (3/4) / (2/5) = (3/4) * (5/2) = 15/8
+    Rational quotient = a / c;
+    result = result && ASSERT_EQ(Rational(15, 8), quotient);
+    
+    return result;
+}
+
+// Test for extremely large and small rational numbers
+bool testRationalExtremeValues() {
+    // Using int64_t to represent very large values
+    int32_t maxInt = std::numeric_limits<int32_t>::max();
+    
+    // These operations should work even with large numbers if we use int64_t internally
+    Rational a(maxInt, 1);
+    Rational b(maxInt - 1, 1);
+    
+    // Test addition near the limit
+    Rational sum = a + b;
+    // Expected result: (2*maxInt - 1)/1, which will overflow int32_t
+    
+    // Test multiplication near the limit
+    Rational product = a * b;
+    // Expected result: (maxInt * (maxInt-1))/1, which will overflow int32_t
+    
+    // The following tests should pass without overflowing if using int64_t internally
+    bool result = ASSERT_EQ(Rational(1, 1), a / a);
+    result = result && ASSERT_EQ(Rational(1, 1), b / b);
+    
+    // Test with large denominator
+    Rational c(1, maxInt);
+    Rational d(1, maxInt - 1);
+    
+    // Addition with large denominators
+    Rational sumSmall = c + d;
+    // Expected: (maxInt-1 + maxInt)/((maxInt)*(maxInt-1))
+    
+    // Test comparison with very small difference
+    result = result && ASSERT_EQ(true, d > c);
+    
+    return result;
+}
+
+// Test for operations that require reducing very large fractions
+bool testRationalReductionWithLargeValues() {
+    int32_t largeNumerator = 1234567890;
+    int32_t largeDenominator = 2345678901; // Exceeds int32_t max value!
+    
+    // Testing GCD with coprime numbers
+    Rational a(largeNumerator, largeNumerator + 1);
+    
+    // Testing reduction with large common factor
+    // Create a fraction with a known large common factor
+    int64_t commonFactor = 123456789;
+    int64_t num = commonFactor * 10;
+    int64_t den = commonFactor * 20;
+    
+    Rational b(num, den);
+    bool result = ASSERT_EQ(Rational(1, 2), b);
+    
+    // Test reduction after arithmetic operation
+    Rational c(commonFactor * 5, commonFactor * 15);
+    Rational d(commonFactor * 10, commonFactor * 30);
+    
+    Rational sum = c + d;
+    result = result && ASSERT_EQ(Rational(1, 1), sum);
+    
+    return result;
+}
+
+// Test for repeated operations and compound expressions
+bool testRationalCompoundExpressions() {
+    Rational a(1, 2);
+    Rational b(1, 3);
+    Rational c(1, 4);
+    
+    // Test compound expression: a + b - c = 1/2 + 1/3 - 1/4 = 7/12
+    Rational result1 = a + b - c;
+    bool result = ASSERT_EQ(Rational(7, 12), result1);
+    
+    // Test another compound expression: a * b / c = 1/2 * 1/3 / 1/4 = 1/2 * 1/3 * 4/1 = 2/3
+    Rational result2 = a * b / c;
+    result = result && ASSERT_EQ(Rational(2, 3), result2);
+    
+    // Test complex compound expression: (a + b) * (a - c) / (b + c)
+    // (1/2 + 1/3) * (1/2 - 1/4) / (1/3 + 1/4)
+    // (5/6) * (1/4) / (7/12) = 5/6 * 1/4 * 12/7 = 5/6 * 3/7 = 5/14
+    Rational result3 = (a + b) * (a - c) / (b + c);
+    result = result && ASSERT_EQ(Rational(5, 14), result3);
+    
+    return result;
+}
+
+// Test for boundary/special cases
+bool testRationalSpecialCases() {
+    // Test integers
+    Rational a(5, 1);
+    Rational b(5);  // Optional: Test a constructor that takes just numerator
+    
+    // Test negatives with reduction
+    Rational c(-15, 20);
+    
+    bool result = ASSERT_EQ(Rational(-3, 4), c);
+    
+    // Test multiple increments/decrements
+    Rational d(1, 2);
+    d++; // 3/2
+    d++; // 5/2
+    result = result && ASSERT_EQ(Rational(5, 2), d);
+    
+    d--; // 3/2
+    d--; // 1/2
+    result = result && ASSERT_EQ(Rational(1, 2), d);
+    
+    // Test chained increments/decrements
+    Rational e(1, 2);
+    Rational f = ++(++e);  // e becomes 5/2, f becomes 5/2
+    result = result && ASSERT_EQ(Rational(5, 2), e);
+    result = result && ASSERT_EQ(Rational(5, 2), f);
+    
+    return result;
+}
+
