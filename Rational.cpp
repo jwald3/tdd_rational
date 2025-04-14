@@ -113,27 +113,37 @@ bool Rational::operator>(const Rational &R) {
 }
 
 Rational Rational::operator-() const {
-    return Rational(1, 1);
+    return Rational(-numerator, denominator);
 }
 
 Rational Rational::operator+() const {
-    return Rational(1, 1);
+    return Rational(+numerator, denominator);
 }
 
 Rational& Rational::operator++() {
+    numerator += denominator;
+
     return *this;
 }
 
-Rational Rational::operator++(int margin) {
-    return Rational(1, 1);
+Rational Rational::operator++(int) {
+    Rational temp = *this;
+    numerator += denominator;
+
+    return temp;
 }
 
 Rational& Rational::operator--() {
+    numerator -= denominator;
+
     return *this;
 }
 
-Rational Rational::operator--(int margin) {
-    return Rational(1, 1);
+Rational Rational::operator--(int) {
+    Rational temp = *this;
+    numerator -= denominator;
+
+    return temp;
 }
 
 
