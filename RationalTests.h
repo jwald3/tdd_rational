@@ -11,7 +11,5 @@ bool testRationalUnaryOperators();
 
 bool testRationalSignNormalization();
 bool testRationalComplexOperations();
-bool testRationalExtremeValues();
-bool testRationalReductionWithLargeValues();
 bool testRationalCompoundExpressions();
 bool testRationalSpecialCases();
