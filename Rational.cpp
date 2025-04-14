@@ -73,19 +73,43 @@ bool Rational::operator!=(const Rational &R) {
 }
 
 bool Rational::operator<=(const Rational &R) {
-    return true;
+    int commonDenominator = denominator == R.getDenominator() ? denominator : denominator * R.getDenominator();
+
+    if (commonDenominator == denominator) {
+        return numerator <= R.getNumerator();
+    } else {
+        return numerator * (commonDenominator / denominator) <= R.getNumerator() * (commonDenominator / R.getDenominator());
+    }
 }
 
 bool Rational::operator>=(const Rational &R) {
-    return true;
+    int commonDenominator = denominator == R.getDenominator() ? denominator : denominator * R.getDenominator();
+
+    if (commonDenominator == denominator) {
+        return numerator >= R.getNumerator();
+    } else {
+        return numerator * (commonDenominator / denominator) >= R.getNumerator() * (commonDenominator / R.getDenominator());
+    }
 }
 
 bool Rational::operator<(const Rational &R) {
-    return true;
+    int commonDenominator = denominator == R.getDenominator() ? denominator : denominator * R.getDenominator();
+
+    if (commonDenominator == denominator) {
+        return numerator < R.getNumerator();
+    } else {
+        return numerator * (commonDenominator / denominator) < R.getNumerator() * (commonDenominator / R.getDenominator());
+    }
 }
 
 bool Rational::operator>(const Rational &R) {
-    return true;
+    int commonDenominator = denominator == R.getDenominator() ? denominator : denominator * R.getDenominator();
+
+    if (commonDenominator == denominator) {
+        return numerator > R.getNumerator();
+    } else {
+        return numerator * (commonDenominator / denominator) > R.getNumerator() * (commonDenominator / R.getDenominator());
+    }
 }
 
 Rational Rational::operator-() const {
